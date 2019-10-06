@@ -12,11 +12,9 @@ public class IntOperand extends Number {
 		ARABIC
 	};
 	private FormatNumber formatNumber;
-	public IntOperand(int value) throws Exception {
+	public IntOperand(int value) {
 		this.numValue = value;
 		this.formatNumber = FormatNumber.ARABIC;
-		if (numValue > 10) 
-			throw new Exception("Operator more than 10");
 	}
 	private int tryRoma(String value) throws Exception {
 		int res = 0;

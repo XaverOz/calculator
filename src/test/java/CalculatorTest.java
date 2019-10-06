@@ -16,27 +16,6 @@ public class CalculatorTest {
 		assertEquals(operationResult, "java.lang.Exception: Operator not found");
     }
     @Test
-    public void binaryOperatorTest() throws Exception {
-    	BinaryOperator op = new BinaryOperator("*") {
-			public <T extends Number> T operate(T operand1, T operand2) 
-throws Exception {
-        		Class[] b = new Class[1];
-        	    b[0] = int.class;
-        	    int pureRes = operand1.intValue() * operand2.intValue();
-        	    T res = null;
-        	    try {
-        	    	res = 
-(T)operand1.getClass().getDeclaredConstructor(b).newInstance(pureRes);
-				} catch(Exception e) {
-					throw new Exception("OperatorCreator intenal error");
-				}
-				return res;
-			}
-    	};
-    	Integer val = op.operate(6, 3);
-		assertEquals(val, new Integer(18));    	
-    }    
-    @Test
     public void arabicOperandTest() throws Exception {
     	IntOperand romaOperand = null;
     	try{
@@ -57,4 +36,13 @@ throws Exception {
     	}
     	assertEquals(operationResult, "java.lang.Exception: Operand format error");
     }    
+    @Test
+    public void binaryOperatorTest() throws Exception {
+    	BinaryOperator.Operation<Integer> operation = (a, b) -> {
+    		return new Integer(a.intValue() * b.intValue());
+    	};
+    	BinaryOperator<Integer> c = new BinaryOperator<Integer>("*", operation);
+    	Integer res = c.operate(new Integer(1), new Integer(3));
+    	assertEquals(res.intValue(), 3);
+    }
 }
