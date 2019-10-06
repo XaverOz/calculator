@@ -24,7 +24,7 @@ throws Exception {
 			T res = (T)operation.operate(operand1, operand2);
 			return res;
 		} catch(Exception e) {
-			throw new Exception("BinaryOperatorWrapped intenal error");		
+			throw new Exception("BinaryOperatorWrapped intenal error");	         	
 		}
 	}	
 }

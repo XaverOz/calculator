@@ -9,11 +9,13 @@ public class CalculatorTest {
     public void testCreateFromExpressionFault() {
     	String operationResult;
     	try {
-    		operationResult = OperatorCreator.createFromExpression("5:3").toString();
+			operationResult = 
+OperatorCreator.createFromExpression("5:3").toString();
     	} catch (Exception e) {
     		operationResult = e.toString();
     	}
-		assertEquals(operationResult, "java.lang.Exception: Operator not found");
+		assertEquals(operationResult, 
+"java.lang.Exception: Operation not found");
     }
     @Test
     public void arabicOperandTest() throws Exception {
@@ -23,8 +25,32 @@ public class CalculatorTest {
 		} catch(Exception e) {
 			throw new Exception("IntOperand intenal error");
 		}
-    	assertEquals(romaOperand.getFormatNumber(), IntOperand.FormatNumber.ROMA);
+		assertEquals(romaOperand.getFormatNumber(), 
+IntOperand.FormatNumber.ROMA);
     	assertEquals(romaOperand.intValue(), 10);
+	}
+	@Test
+    public void operatorCreatorFaultError() throws Exception {
+    	String operationResult;
+    	try {
+    		operationResult = OperatorCreator.createFromExpression("  5   +   X   ").toString();
+    	} catch (Exception e) {
+    		operationResult = e.toString();
+		}
+		assertEquals(operationResult, 
+"java.lang.Exception: Operator format not equals");
+	}
+	@Test
+    public void operator1FormatError() throws Exception {
+    	String operationResult;
+    	try {
+			operationResult = 
+OperatorCreator.createFromExpression("  5 3   +   X   ").toString();
+    	} catch (Exception e) {
+    		operationResult = e.toString();
+		}
+		assertEquals(operationResult, 
+"java.lang.Exception: Operand format error");
     }
     @Test
     public void arabicOperandErrorTest() throws Exception {
@@ -34,14 +60,16 @@ public class CalculatorTest {
     	} catch(Exception e) {
     		operationResult = e.toString();
     	}
-    	assertEquals(operationResult, "java.lang.Exception: Operand format error");
+		assertEquals(operationResult, 
+"java.lang.Exception: Operand format error");
     }    
     @Test
     public void binaryOperatorTest() throws Exception {
     	BinaryOperator.Operation<Integer> operation = (a, b) -> {
     		return new Integer(a.intValue() * b.intValue());
     	};
-    	BinaryOperator<Integer> c = new BinaryOperator<Integer>("*", operation);
+		BinaryOperator<Integer> c = new 
+BinaryOperator<Integer>("*", operation);
     	Integer res = c.operate(new Integer(1), new Integer(3));
     	assertEquals(res.intValue(), 3);
     }
