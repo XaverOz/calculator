@@ -112,6 +112,9 @@ public class IntOperand extends Number {
 	}
 	public String toString() {
 		if (this.formatNumber == FormatNumber.ROMA) {
+			if(numValue <= 0) {
+				return "Result can't be displayed in selected format";
+			}
 			return romaToString();
 		}
 		return String.valueOf(numValue);
